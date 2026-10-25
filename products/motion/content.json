@@ -2,7 +2,7 @@
   "template": "gallery",
   "page": {
     "title": "Motion — Your body is the controller",
-    "description": "A held body-controlled game prototype for iPhone.",
+    "description": "A body-controlled iPhone game prototype in active development.",
     "theme": "gallery",
     "mode": "dark",
     "icon": "images/brand/mark.png",
@@ -56,9 +56,9 @@
     "href": "/testflight/"
   },
   "hero": {
-    "eyebrow": "A held body-controlled game prototype",
+    "eyebrow": "A body-controlled game in development",
     "title": "Move.\n*Play.*",
-    "lede": "A held iPhone prototype reads movement on-device and turns it into game input. Camera frames stay on the phone.",
+    "lede": "The iPhone reads movement on-device and turns it into game input. Camera frames stay on the phone.",
     "primary": {
       "label": "See TestFlight status",
       "href": "/testflight/"
@@ -67,7 +67,7 @@
       "label": "See the working build ›",
       "href": "/#how-it-works"
     },
-    "note": "Held internal prototype. No public TestFlight invite or App Store listing.",
+    "note": "Internal iPhone prototype. No public TestFlight invite or App Store listing.",
     "backdrop": "images/story/motion-hero-v3.webp",
     "screen": {
       "src": "images/screens/motion-maker-clean.webp",
@@ -153,12 +153,12 @@
       "label": "See TestFlight status",
       "href": "/testflight/"
     },
-    "note": "The internal build runs on an iPhone, but physical control feel and fun remain unproven. Work is on hold until one control loop can be tested properly on a real device.",
+    "note": "The internal iPhone build runs. Its physical control feel and fun still need testing on a real device.",
     "image": "footer-art/motion-v3.webp",
     "credit": "Illustrative artwork"
   },
   "footer": {
-    "summary": "A held iPhone-hosted game prototype: on-device pose tracking turns movement into play, without uploading camera frames.",
+    "summary": "An iPhone game prototype in active development: on-device pose tracking turns movement into play without uploading camera frames.",
     "catalogId": "motion",
     "links": [
       {
@@ -190,7 +190,7 @@
         "href": "/support/"
       }
     ],
-    "legal": "A held internal game prototype, not a public beta or console. © 2026 Sarthak Agrawal.",
+    "legal": "Internal game prototype in active development. No public beta or console. © 2026 Sarthak Agrawal.",
     "art": {
       "src": "images/story/motion-hero-v3.webp",
       "alt": "",
