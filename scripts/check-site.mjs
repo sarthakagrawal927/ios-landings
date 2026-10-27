@@ -537,3 +537,16 @@ const sitemapUrls = [...(await readFile(`${dist}/sitemap.xml`, 'utf8')).matchAll
 if (sitemapUrls.length !== registeredUrls.size || sitemapUrls.some((url) => !registeredUrls.has(url) || url.endsWith('.md'))) {
   throw new Error(`${product}: sitemap and public Markdown registry differ`);
 }
+
+// Release mirrors use the release page's status and availability, not TestFlight metadata.
+const releaseMarkdown = await readFile(`${dist}/release/index.md`, "utf8");
+if (!/^# .+: Release status$/m.test(releaseMarkdown) || !releaseMarkdown.includes("## What is included") || !releaseMarkdown.includes("## What is not included")) throw new Error(`${product}: release Markdown lost its authored release sections.`);
+const discovery = await readFile(`${dist}/llms.txt`, "utf8");
+if (!discovery.includes("## Product boundaries")) throw new Error(`${product}: discovery lost product boundaries.`);
+if (!discovery.includes("## When to use this")) throw new Error(`${product}: discovery lost curated agent fit.`);
+if (product === "motion" && !discovery.includes("## CLI")) throw new Error("Motion discovery lost its authored CLI guidance.");
+
+if (!discovery.includes("/openapi.json)")) throw new Error(`${product}: discovery lost OpenAPI.`);
+const publicCatalog = JSON.parse(await readFile(`${dist}/api/md/_catalog`, "utf8"));
+const agentCatalogRoutes = JSON.parse(await readFile(`${dist}/api/ai`, "utf8")).surfaces.map((route) => route.url).sort();
+if (JSON.stringify(agentCatalogRoutes) !== JSON.stringify(publicCatalog.map((route) => route.path).sort())) throw new Error(`${product}: agent catalog and Markdown registry disagree.`);

@@ -9,15 +9,27 @@ import { createAgentSurfaceHandler } from './agent-surfaces/handler.mjs';
 
 export const markdownIdentity = {
   name: site.name, url: site.url, summary: site.summary,
-  contact: links.support, updatedAt: site.lastUpdated, trainingAllowed: true,
+  openapi: `${site.url}/openapi.json`, contact: links.support, updatedAt: site.lastUpdated, trainingAllowed: true,
   excludedPaths: ['/admin', '/auth', '/dashboard', '/api'],
+  notes: [
+    '## When to use this', '',
+    ...(site.agentFit ? [...site.agentFit.bestFit.map((entry) => `- Best fit: ${entry}`), ...site.agentFit.notAFit.map((entry) => `- Not a fit: ${entry}`)] : [
+      `- Best fit: learning about ${site.name} — ${site.tagline}`,
+      `- Best fit: checking ${site.name} availability, privacy, and support on the public landing`,
+      '- Not a fit: accessing product functionality or user data through these public read-only pages',
+      '- Not a fit: API integrations beyond the read-only agent surfaces listed here',
+    ]), '',
+    ...(site.agentCli?.length ? ['## CLI', '', ...site.agentCli.map((entry) => `- ${entry}`), ''] : []),
+    '## Product boundaries', '', ...site.boundaries.map((entry) => `- ${entry}`),
+    ...(productId === 'setline' ? ['', 'Agent email for directory verification: sarthakagrawal@agentmail.to'] : []),
+  ],
 };
 
 export async function markdownRegistry() {
   const pages: Record<string, string> = { '/': await (await home()).text() };
   const routes = [{ path: '/', title: site.name, description: site.summary, assetPath: '/index.md', aliases: ['/index.md'], lastModified: site.lastUpdated }];
   for (const name of ['privacy', 'support', 'terms', 'accessibility', 'release', 'testflight']) {
-    const page = site.legal[name === 'release' ? 'testflight' : name as keyof typeof site.legal];
+    const page = name === 'release' ? { title: 'Release status', lede: site.status } : site.legal[name as keyof typeof site.legal];
     const path = `/${name}/`;
     pages[path] = await section({ params: { section: name } }).text();
     routes.push({ path, title: page.title, description: page.lede, assetPath: `/${name}/index.md`, aliases: [`/${name}/index.md`], lastModified: site.lastUpdated });
